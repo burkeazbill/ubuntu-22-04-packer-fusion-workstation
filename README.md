@@ -16,7 +16,7 @@ Default username: vmadmin
 Default password: MyP@ssw0rd-22!
 
 ### The right way
-As with any software/OS containing credentials, you are highly encouraged to CHANGE 
+As with any software/OS containing credentials, you are highly encouraged to CHANGE settings to fit your preferences
 
 1. Clone the repository
 2. Edit the following values in the http/user-data file:
