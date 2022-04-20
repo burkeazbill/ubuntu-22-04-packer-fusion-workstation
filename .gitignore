@@ -1,0 +1,3 @@
+*.bak
+http/*.bak
+.DS_Store

@@ -1,0 +1,47 @@
+#cloud-config
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+# WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+# COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+# OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+# Ubuntu Server 22.04 LTS
+autoinstall:
+  version: 1
+  apt:
+    geoip: true
+    disable_components: []
+    preserve_sources_list: false
+    primary:
+      - arches: [amd64, i386]
+        uri: http://us.archive.ubuntu.com/ubuntu
+      - arches: [default]
+        uri: http://ports.ubuntu.com/ubuntu-ports
+  early-commands:
+    - sudo systemctl stop ssh
+  locale: en_US
+  keyboard:
+    layout: us
+  identity:
+    hostname: jammy-daily
+    username: vmadmin
+    password: $6$Da/Bin6we2OOJCVD$HM00JdEP47D.cVfSYzwf71khVHPD8NqbYLGw/iXPswndEqI2TNsMELWRCt0tA2.mVMPjFZlPI0B/xOBO9OhF01
+  ssh:
+    install-server: true
+    allow-pw: true
+  packages:
+    - openssh-server
+    - open-vm-tools
+    - cloud-init
+    - whois
+    - zsh
+    - wget
+    - tasksel
+  user-data:
+    disable_root: false
+    timezone: UTC
+  late-commands:
+    - sed -i -e 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/g' /target/etc/ssh/sshd_config
+    - echo 'vmadmin ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/vmadmin
+    - curtin in-target --target=/target -- chmod 440 /etc/sudoers.d/vmadmin
+    - "lvresize -v -l +100%FREE /dev/mapper/ubuntu--vg-ubuntu--lv"
+    - "resize2fs -p /dev/mapper/ubuntu--vg-ubuntu--lv"
