@@ -39,7 +39,7 @@ As with any software/OS containing credentials, you are highly encouraged to CHA
 - Resize the Logical Volume/Volume Group to use 100% of the specified disk size
 - Install: openssh-server, open-fm-tools, cloud-init, whois, zsh, wget, tasksel
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/HHaG_ra5QFw" title="YouTube video player" frameborder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[[Youtube Video walk-through]](https://www.youtube.com/watch?v=HHaG_ra5QFw)
 
 ## Ubuntu Download Pages
 - [Jammy Releases](http://releases.ubuntu.com/jammy/)
